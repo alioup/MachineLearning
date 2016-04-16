@@ -32,8 +32,7 @@ def convertOneHot(data):
     return (y,y_onehot)
 
 
-#buildDataFromIris()
-
+buildDataFromIris()
 
 data = genfromtxt('cs-training.csv',delimiter=',')  # Training data
 test_data = genfromtxt('cs-testing.csv',delimiter=',')  # Test data
@@ -73,8 +72,11 @@ sess.run(init)
 print("...")
 # Run the training
 for i in range(30):
-    sess.run(tf_train_step, feed_dict={tf_in: x_train, tf_softmax_correct: y_train_onehot})
+   sess.run(tf_train_step, feed_dict={tf_in: x_train, tf_softmax_correct: y_train_onehot})
     
     # Print accuracy
-    result = sess.run(tf_accuracy, feed_dict={tf_in: x_test, tf_softmax_correct: y_test_onehot})
-    print "Run {},{}".format(i,result)
+   result = sess.run(tf_accuracy, feed_dict={tf_in: x_test, tf_softmax_correct: y_test_onehot})
+   print "Run {},{}".format(i,result)
+
+prediction=tf.argmax(tf_softmax,1)
+print prediction.eval(feed_dict={tf_in: x_train}, session=sess)
